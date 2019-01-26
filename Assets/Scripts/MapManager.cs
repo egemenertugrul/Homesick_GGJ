@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    public bool assignRandomTimeScales = false;
+    public float scaleMultiplier = 3f;
 
     public enum e_MapType { SolarSystem, Asteroid }
-    public bool assignRandomTimeScales = false;
     public e_MapType mapType;
 
     public float universalTimeScale = 1;
@@ -16,7 +17,6 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] earthSimplePlanetPrefabs;
     public GameObject[] asteroidPrefabs;
-
 
     // Use this for initialization
     void Start()
@@ -40,7 +40,7 @@ public class MapManager : MonoBehaviour
                 int randomIndex = Random.Range(0, asteroidPrefabs.Length);
                 GameObject newAsteroid = Instantiate(asteroidPrefabs[randomIndex], mover.transform);
                 //float sphereScale = mover.transform.localScale.x; // Assuming x,y,z scales are the same
-                newAsteroid.transform.localScale = new Vector3(newAsteroid.transform.localScale.x * 5, newAsteroid.transform.localScale.y * 5, newAsteroid.transform.localScale.z * 5);
+                newAsteroid.transform.localScale = new Vector3(newAsteroid.transform.localScale.x * scaleMultiplier, newAsteroid.transform.localScale.y * scaleMultiplier, newAsteroid.transform.localScale.z * scaleMultiplier);
                 int randomRotX = Random.Range(0, 360);
                 int randomRotY = Random.Range(0, 360);
                 int randomRotZ = Random.Range(0, 360);
@@ -52,6 +52,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+        
     }
 
     // Update is called once per frame

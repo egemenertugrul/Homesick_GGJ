@@ -1,9 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CarScript : MonoBehaviour
 {
+    public GameObject assembly;
+
+    public float strafeLimit = 40;
+
+    public GameObject camera1;//first view
+    public GameObject camera2;//third view
 
     public Transform planet;
     public Rigidbody rb;
@@ -12,11 +19,16 @@ public class CarScript : MonoBehaviour
     private Vector3 directionOfPlanetFromCar;
     private bool allowForce;
 
+    public float rotatedSpeed = 4;
+
+
     public Transform steerWheel;
     public Transform power;
 
     private Quaternion startQ;
     private Quaternion powerQ;
+    private bool buttonC = false;
+
     // Use this for initialization
     void Start()
     {
@@ -30,25 +42,79 @@ public class CarScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateWheel();
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (!buttonC)
+            {
+                ChangeToThirdPView();
+                buttonC = true;
+            }
+            else
+            {
+                ChangeToFirstPView();
+                buttonC = false;
+            }
+        }
+
+        Strafe();
         UpdatePower();
     }
 
-    public void UpdateWheel()
+    void ChangeToThirdPView()
+    {
+        camera1.SetActive(false);
+        camera2.SetActive(true);
+    }
+
+    void ChangeToFirstPView()
+    {
+        camera1.SetActive(true);
+        camera2.SetActive(false);
+    }
+
+    public void Strafe()
     {
         float h = Input.GetAxis("Horizontal");
+
+
+
         if (h > 0.1f)
         {
+            //print("go right");
+
             steerWheel.Rotate(Vector3.up, 1f);
+            if (assembly.transform.eulerAngles.z < strafeLimit || assembly.transform.eulerAngles.z > 360 - strafeLimit)
+            {
+                assembly.transform.Rotate(0, 0, -h * Time.fixedDeltaTime * rotatedSpeed, Space.Self);
+            }
+            transform.Translate(h * Time.fixedDeltaTime * rotatedSpeed, 0, 0, Space.Self);
         }
         else if (h < -0.1f)
         {
+            //print("go left");
+
             steerWheel.Rotate(Vector3.down, 1f);
+            if (assembly.transform.eulerAngles.z < strafeLimit || assembly.transform.eulerAngles.z > 360 - strafeLimit)
+            {
+                assembly.transform.Rotate(0, 0, -h * Time.fixedDeltaTime * rotatedSpeed, Space.Self);
+            }
+            transform.Translate(h * Time.fixedDeltaTime * rotatedSpeed, 0, 0, Space.Self);
         }
         else
         {
             steerWheel.localRotation = Quaternion.Lerp(steerWheel.localRotation, startQ, Time.deltaTime);
+
+            if (assembly.transform.eulerAngles.z > 1 && assembly.transform.eulerAngles.z <= 170)
+                assembly.transform.Rotate(0, 0, -Time.fixedDeltaTime * rotatedSpeed, Space.Self);
+            else if (assembly.transform.eulerAngles.z > 182)    
+                assembly.transform.Rotate(0, 0, Time.fixedDeltaTime * rotatedSpeed, Space.Self);
+            transform.Translate(h * Time.fixedDeltaTime * rotatedSpeed, 0, 0, Space.Self);
         }
+
+        //camera1.transform.Rotate(0, 0, -h * Time.fixedDeltaTime * rotatedSpeed, Space.Self);
+
+        //carPoint.transform.Rotate(0, 0, -h * Time.fixedDeltaTime * rotatedSpeed, Space.Self);
+
     }
 
     public void UpdatePower()
@@ -70,8 +136,19 @@ public class CarScript : MonoBehaviour
 
     void FixedUpdate()
     {
+        Vector3 eulerAng = transform.eulerAngles;
+
+        transform.LookAt(planet);
         if (Input.GetKeyDown(KeyCode.Space))
             rb.AddForce(transform.forward * forceAmountForRotation);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<AsteroidScript>() != null)
+        {
+            print("Game Over!");
+        }
     }
 
 }

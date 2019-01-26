@@ -44,4 +44,5 @@ public class PlanetScript : MonoBehaviour {
         car.GetComponent<Rigidbody>().AddForce(normalForce);
         // .... add forces of other objects. 
     }
+
 }
