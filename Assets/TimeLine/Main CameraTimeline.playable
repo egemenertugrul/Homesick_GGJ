@@ -16,7 +16,7 @@ MonoBehaviour:
   - {fileID: 114898998581160116}
   m_FixedDuration: 0
   m_EditorSettings:
-    fps: 60
+    m_Framerate: 60
   m_DurationMode: 0
 --- !u!74 &74372286987576278
 AnimationClip:
@@ -96,7 +96,7 @@ AnimationClip:
       attribute: 4
       script: {fileID: 0}
       typeID: 4
-      customType: 14
+      customType: 4
       isPPtrCurve: 0
     - serializedVersion: 2
       path: 0
