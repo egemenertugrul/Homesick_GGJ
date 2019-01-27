@@ -21,9 +21,10 @@ public class CarScript : MonoBehaviour
 
     public float rotatedSpeed = 4;
 
+    public float power = 0f;
 
     public Transform steerWheel;
-    public Transform power;
+    public Transform powerHandle;
 
     private Quaternion startQ;
     private Quaternion powerQ;
@@ -106,7 +107,7 @@ public class CarScript : MonoBehaviour
 
             if (assembly.transform.eulerAngles.z > 1 && assembly.transform.eulerAngles.z <= 170)
                 assembly.transform.Rotate(0, 0, -Time.fixedDeltaTime * rotatedSpeed, Space.Self);
-            else if (assembly.transform.eulerAngles.z > 182)    
+            else if (assembly.transform.eulerAngles.z > 182)
                 assembly.transform.Rotate(0, 0, Time.fixedDeltaTime * rotatedSpeed, Space.Self);
             transform.Translate(h * Time.fixedDeltaTime * rotatedSpeed, 0, 0, Space.Self);
         }
@@ -122,16 +123,20 @@ public class CarScript : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         if (v > 0.1f)
         {
-            power.Rotate(Vector3.left, 1f);
+            power = power + 0.001f;
         }
-        else if (v < -0.1f)
+        if (v < -0.1f)
         {
-            power.Rotate(Vector3.right, 1f);
+            power = power - 0.001f;
         }
-        else
-        {
-            power.localRotation = Quaternion.Lerp(power.localRotation, powerQ, Time.deltaTime);
-        }
+
+        power = Mathf.Clamp(power, 0, 5);
+        powerHandle.Rotate(Vector3.right * power, 1f);
+        powerHandle.localRotation = Quaternion.Lerp(Quaternion.Euler(powerHandle.localEulerAngles + new Vector3(90/5*power, 0, 0)), powerQ, Time.deltaTime);
+        //else
+        //{
+        //powerHandle.localRotation = Quaternion.Lerp(powerHandle.localRotation, powerQ, Time.deltaTime);
+        //}
     }
 
     void FixedUpdate()
@@ -139,8 +144,9 @@ public class CarScript : MonoBehaviour
         Vector3 eulerAng = transform.eulerAngles;
 
         transform.LookAt(planet);
-        if (Input.GetKeyDown(KeyCode.Space))
-            rb.AddForce(transform.forward * forceAmountForRotation);
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //    rb.AddForce(transform.forward * forceAmountForRotation);
+        rb.AddForce(transform.forward * power);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -148,6 +154,7 @@ public class CarScript : MonoBehaviour
         if (collision.gameObject.GetComponent<AsteroidScript>() != null)
         {
             print("Game Over!");
+            // TODO: Add game end.
         }
     }
 
