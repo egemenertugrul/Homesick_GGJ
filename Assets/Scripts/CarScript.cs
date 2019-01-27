@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarScript : MonoBehaviour
 {
@@ -25,12 +26,26 @@ public class CarScript : MonoBehaviour
 
     public Transform steerWheel;
     public Transform powerHandle;
-
+    public GameObject map_2d;
+    public AudioSource Ac1;
+    public AudioSource Ac2;
     private Quaternion startQ;
     private Quaternion powerQ;
     private bool buttonC = false;
 
+    public GameObject GameOver;
+
+    public GameObject GameWin;
+
+    public GameObject StoryText;
+    public GameObject End;
+    
+    
     // Use this for initialization
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,6 +53,7 @@ public class CarScript : MonoBehaviour
 
         startQ = steerWheel.localRotation;
         powerQ = steerWheel.localRotation;
+        StartCoroutine("PlayLoopMusic");
     }
 
     // Update is called once per frame
@@ -57,6 +73,11 @@ public class CarScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PressRestart();
+        }
+
         Strafe();
         UpdatePower();
     }
@@ -65,12 +86,14 @@ public class CarScript : MonoBehaviour
     {
         camera1.SetActive(false);
         camera2.SetActive(true);
+        map_2d.SetActive(false);
     }
 
     void ChangeToFirstPView()
     {
         camera1.SetActive(true);
         camera2.SetActive(false);
+        map_2d.SetActive(true);
     }
 
     public void Strafe()
@@ -152,9 +175,41 @@ public class CarScript : MonoBehaviour
         if (collision.gameObject.GetComponent<AsteroidScript>() != null)
         {
             print("Game Over!");
-            StartCoroutine(GameObject.Find("Map").GetComponent<MapManager>().RestartLevel());
+            GameOver.SetActive(true);
+            return;
+            // TODO: Add game end.
+        }else if(collision.transform.CompareTag("Earth"))
+        {
+            StartCoroutine("ShowEndResult");         
+            return;
         }
     }
 
+    IEnumerator PlayLoopMusic()
+    {
+        StoryText.SetActive(true);
+        yield return new WaitForSeconds(3f);    
+        //ToAudio.UpdateVideo(
+        //    "Now you are on the way home,use w a s d to move and c for different angel of view.Player two can" +
+        //    "use his or her phone to control the turret!");
+        //yield return null;
+        StoryText.SetActive(false);
+        Ac2.Play();
+        Ac2.loop = true;
+        yield return null;
+    }
+
+    public void PressRestart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    IEnumerator ShowEndResult()
+    {
+        End.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        GameWin.SetActive(true);
+        yield return null;
+    }
 }
 

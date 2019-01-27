@@ -6,6 +6,7 @@ public class ViewControl : MonoBehaviour
 {
     public GameObject camera1;//first view
     public GameObject camera2;//third view
+    public GameObject map_2d;
     public GameObject carPoint;
     bool buttonC = false;
 
@@ -56,12 +57,14 @@ public class ViewControl : MonoBehaviour
     void ChangeToThirdPView()
     {
         camera1.SetActive(false);
-        camera2.SetActive(true);   
+        camera2.SetActive(true);
+        map_2d.SetActive(false);
     }
 
     void ChangeToFirstPView()
     {
         camera1.SetActive(true);
         camera2.SetActive(false);
+        map_2d.SetActive(true);
     }
 }
