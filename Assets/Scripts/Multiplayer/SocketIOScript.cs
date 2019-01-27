@@ -115,7 +115,7 @@ public class SocketIOScript : MonoBehaviour
                 string str = data.ToString();
                 ChatData chat = JsonConvert.DeserializeObject<ChatData>(str);
                 string[] strFire = chat.msg.Split(',');
-                Vector2 coordinates = new Vector2(float.Parse(strFire[0])*800, 600f-float.Parse(strFire[1])*600);
+                Vector2 coordinates = new Vector2(float.Parse(strFire[0]), 1.0f-float.Parse(strFire[1]));
                 //print("Fire received from: " + chat.id);
                 //print(coordinates);
                 tp.lastFire = coordinates;

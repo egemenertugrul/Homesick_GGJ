@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class PlanetScript : MonoBehaviour {
     private float forceEarth;
 
     private Rigidbody rb;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,4 +47,17 @@ public class PlanetScript : MonoBehaviour {
         // .... add forces of other objects. 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        CarScript cs = other.gameObject.GetComponent<CarScript>();
+        if (cs)
+        {
+            StartCoroutine(CountdownToEndGame());
+        }
+    }
+
+    private IEnumerator CountdownToEndGame()
+    {
+        yield return new WaitForSeconds(4f);
+    }
 }

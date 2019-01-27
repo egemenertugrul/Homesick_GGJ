@@ -13,7 +13,7 @@ public class TurretPlayer : MonoBehaviour
     public int id;
 
     public GameObject rocket;
-    public float turretCooldown = 1f;
+    public float turretCooldown = 0.3f;
     private bool canFire = true;
 
     // Use this for initialization
@@ -27,16 +27,17 @@ public class TurretPlayer : MonoBehaviour
     {
         if (!lastFired)
         {
-            turretModel.transform.LookAt(new Vector3(cam.ScreenPointToRay(lastFire).direction.x * 800, cam.ScreenPointToRay(lastFire).direction.y * 600, cam.ScreenPointToRay(lastFire).direction.z * 600));
-            Debug.DrawRay(cam.transform.position, cam.ScreenPointToRay(lastFire).direction);
+            lastFire = new Vector2(cam.pixelWidth * lastFire.x, cam.pixelHeight * lastFire.y);
+            turretModel.transform.LookAt(cam.ScreenPointToRay(lastFire).direction * RocketScript.defaultRocketSpeed);
+            //Debug.DrawRay(cam.transform.position, cam.ScreenPointToRay(lastFire).direction, Color.white, 1f);
 
             lastFired = true;
             if (canFire)
             {
                 GameObject newRocket = Instantiate(rocket);
                 newRocket.transform.position = turretModel.transform.position;
-                newRocket.transform.eulerAngles = new Vector3(turretModel.transform.eulerAngles.x, turretModel.transform.eulerAngles.y - 90, turretModel.transform.eulerAngles.z);
-                newRocket.GetComponent<Rigidbody>().AddForce(cam.ScreenPointToRay(lastFire).direction * RocketScript.defaultRocketSpeed, ForceMode.Acceleration);
+                newRocket.transform.eulerAngles = new Vector3(turretModel.transform.eulerAngles.x, turretModel.transform.eulerAngles.y, turretModel.transform.eulerAngles.z);
+                newRocket.GetComponent<Rigidbody>().AddForce(newRocket.transform.forward * RocketScript.defaultRocketSpeed);
                 Destroy(newRocket, RocketScript.lifetime);
                 canFire = false;
                 StartCoroutine(Countdown());

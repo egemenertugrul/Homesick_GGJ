@@ -5,7 +5,7 @@ using UnityEngine;
 public class RocketScript : MonoBehaviour {
 
     public static float lifetime = 60f; // seconds
-    public static float defaultRocketSpeed = 7000f;
+    public static float defaultRocketSpeed = 14000f;
 
     // Use this for initialization
     void Start () {

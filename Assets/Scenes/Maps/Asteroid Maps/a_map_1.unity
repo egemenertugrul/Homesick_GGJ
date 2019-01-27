@@ -666,7 +666,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.04
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1082,6 +1082,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 396288239}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &586885229 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100014, guid: 4cca50b46e375734586a1cf77cb87a37, type: 2}
+  m_PrefabInternal: {fileID: 929284693}
 --- !u!1 &717224763
 GameObject:
   m_ObjectHideFlags: 0
@@ -1527,6 +1531,25 @@ Prefab:
       propertyPath: m_Mass
       value: 100000
       objectReference: {fileID: 0}
+    - target: {fileID: 2300008, guid: 4cca50b46e375734586a1cf77cb87a37, type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135734140767564102, guid: 4cca50b46e375734586a1cf77cb87a37,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 135734140767564102, guid: 4cca50b46e375734586a1cf77cb87a37,
+        type: 2}
+      propertyPath: m_Radius
+      value: 1.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114681542203202620, guid: 4cca50b46e375734586a1cf77cb87a37,
+        type: 2}
+      propertyPath: earthDay
+      value: 
+      objectReference: {fileID: 586885229}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4cca50b46e375734586a1cf77cb87a37, type: 2}
   m_IsPrefabParent: 0
@@ -2094,7 +2117,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.04
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2434,54 +2457,54 @@ MonoBehaviour:
       y: 0
       z: 0
     Position:
-      x: -339.65753542194557
-      y: 0.00000000007363879105460767
-      z: 124.14578765063744
-    AttractorDistance: 361.6343705463206
+      x: -339.65753173828125
+      y: 0.00000000007363878257171663
+      z: 124.14579010009766
+    AttractorDistance: 361.63436792721876
     AttractorMass: 1000
     Velocity:
-      x: 0.1805114599536466
-      y: 0.00000031265113875634016
-      z: 0.4938964897317103
+      x: 0.180511474609375
+      y: 0.0000003126511387563369
+      z: 0.49388885498046875
     MG: 100.00000149011612
-    SemiMinorAxis: 361.62879524044286
-    SemiMajorAxis: 361.6287953311948
-    FocalParameter: 361.628795149691
-    Eccentricity: 0.000022403269070206768
-    EnergyTotal: -0.2765266560107082
-    Period: 4320.9015588604
-    TrueAnomaly: 2.3297577753118754
-    MeanAnomaly: 2.3297252655029297
-    EccentricAnomaly: 2.329741520470052
+    SemiMinorAxis: 361.6189345100161
+    SemiMajorAxis: 361.61893486224244
+    FocalParameter: 361.61893415778985
+    Eccentricity: 0.00004413674544341352
+    EnergyTotal: -0.2765341962201476
+    Period: 4320.724834167361
+    TrueAnomaly: 2.883762487327473
+    MeanAnomaly: 2.8837399783636983
+    EccentricAnomaly: 2.8837512329656603
     SquaresConstant: 0
     Periapsis:
-      x: 143.6620005100495
-      y: -0.00015599821550519604
-      z: -331.8595421190283
-    PeriapsisDistance: 361.62069366398947
+      x: 296.7494906225237
+      y: -0.000054821135312192666
+      z: -206.6311950084827
+    PeriapsisDistance: 361.6029741793669
     Apoapsis:
-      x: -143.66843765116766
-      y: 0.00015600520540178542
-      z: 331.8744119293919
-    ApoapsisDistance: 361.6368969984002
+      x: -296.7756868921979
+      y: 0.00005482597477877937
+      z: 206.6494358704845
+    ApoapsisDistance: 361.63489554511796
     CenterPoint:
-      x: -0.003218570559093077
-      y: 0.0000000034949482947028835
-      z: 0.007434905181789506
-    OrbitCompressionRatio: 0.9999999994980935
+      x: -0.013098134837112044
+      y: 0.00000000241973329335489
+      z: 0.00912043100089916
+    OrbitCompressionRatio: 0.9999999980519477
     OrbitNormal:
-      x: -0.0000002041080298358982
-      y: 0.9999999999998234
-      z: -0.0000005584313839771687
+      x: -0.0000002041108167595143
+      y: 0.9999999999998231
+      z: -0.0000005584389918055648
     SemiMinorAxisBasis:
-      x: 0.917700640294147
-      y: 0.0000004091595688143768
-      z: 0.3972726202540832
+      x: 0.5714311268523498
+      y: 0.000000574918247879542
+      z: 0.8206500272734554
     SemiMajorAxisBasis:
-      x: 0.39727262025424154
-      y: -0.0000004313863068083885
-      z: -0.9177006402940684
-    OrbitNormalDotEclipticNormal: -0.0000005584313839771687
+      x: 0.8206500272736315
+      y: -0.00000015160587502524135
+      z: -0.5714311268523662
+    OrbitNormalDotEclipticNormal: -0.0000005584389918055648
   LockOrbitEditing: 0
 --- !u!23 &1395947607
 MeshRenderer:
@@ -3486,7 +3509,7 @@ Prefab:
     - target: {fileID: 114293624758512098, guid: 06dab85b6a1d610448418172c9f832d9,
         type: 2}
       propertyPath: rotatedSpeed
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 114293624758512098, guid: 06dab85b6a1d610448418172c9f832d9,
         type: 2}
@@ -3512,6 +3535,11 @@ Prefab:
     - target: {fileID: 4016483508174348, guid: 06dab85b6a1d610448418172c9f832d9, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0.16900001
+      objectReference: {fileID: 0}
+    - target: {fileID: 114293624758512098, guid: 06dab85b6a1d610448418172c9f832d9,
+        type: 2}
+      propertyPath: power
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06dab85b6a1d610448418172c9f832d9, type: 2}
@@ -3937,7 +3965,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2112622482}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.010567575, y: 0.00007350033, z: 0.006954713, w: 0.99992}
   m_LocalPosition: {x: 0.16, y: 0.83, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3945,7 +3973,7 @@ Transform:
   - {fileID: 1840307390}
   m_Father: {fileID: 15311761}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.2110001, y: 0, z: 0.79700005}
 --- !u!114 &2112622484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4011,7 +4039,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.01
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
