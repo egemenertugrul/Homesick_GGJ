@@ -25,13 +25,8 @@ public class TurretPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!lastFired)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            lastFire = new Vector2(cam.pixelWidth * lastFire.x, cam.pixelHeight * lastFire.y);
-            turretModel.transform.LookAt(cam.ScreenPointToRay(lastFire).direction * RocketScript.defaultRocketSpeed);
-            //Debug.DrawRay(cam.transform.position, cam.ScreenPointToRay(lastFire).direction, Color.white, 1f);
-
-            lastFired = true;
             if (canFire)
             {
                 GameObject newRocket = Instantiate(rocket);
@@ -42,6 +37,25 @@ public class TurretPlayer : MonoBehaviour
                 canFire = false;
                 StartCoroutine(Countdown());
             }
+        }
+        if (!lastFired)
+        {
+            if (canFire)
+            {
+                GameObject newRocket = Instantiate(rocket);
+                newRocket.transform.position = turretModel.transform.position;
+                newRocket.transform.eulerAngles = new Vector3(turretModel.transform.eulerAngles.x, turretModel.transform.eulerAngles.y, turretModel.transform.eulerAngles.z);
+                newRocket.GetComponent<Rigidbody>().AddForce(newRocket.transform.forward * RocketScript.defaultRocketSpeed);
+                Destroy(newRocket, RocketScript.lifetime);
+                canFire = false;
+                StartCoroutine(Countdown());
+                lastFire = new Vector2(cam.pixelWidth * lastFire.x, cam.pixelHeight * lastFire.y);
+                turretModel.transform.LookAt(cam.ScreenPointToRay(lastFire).direction * RocketScript.defaultRocketSpeed);
+                //Debug.DrawRay(cam.transform.position, cam.ScreenPointToRay(lastFire).direction, Color.white, 1f);
+
+                lastFired = true;
+            }
+
         }
     }
 

@@ -19,7 +19,10 @@ public class MapManager : MonoBehaviour
     public GameObject[] earthSimplePlanetPrefabs;
     public GameObject[] asteroidPrefabs;
 
+    public string currentSceneName = "a_map_3";
     public string nextSceneName = "a_map_3";
+
+    public GameObject GameOverCanvas;
 
     // Use this for initialization
     void Start()
@@ -73,5 +76,13 @@ public class MapManager : MonoBehaviour
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(nextSceneName);
+    }
+
+    public IEnumerator RestartLevel()
+    {
+        GameOverCanvas.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        GameOverCanvas.SetActive(false);
+        SceneManager.LoadScene(currentSceneName);
     }
 }

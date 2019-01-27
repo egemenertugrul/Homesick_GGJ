@@ -77,8 +77,6 @@ public class CarScript : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
 
-
-
         if (h > 0.1f)
         {
             //print("go right");
@@ -154,7 +152,7 @@ public class CarScript : MonoBehaviour
         if (collision.gameObject.GetComponent<AsteroidScript>() != null)
         {
             print("Game Over!");
-            // TODO: Add game end.
+            StartCoroutine(GameObject.Find("Map").GetComponent<MapManager>().RestartLevel());
         }
     }
 
