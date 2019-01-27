@@ -18,7 +18,6 @@ public class PlanetScript : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         directionOfCarFromPlanet = Vector3.zero;
-
     }
 
     //void Update()
@@ -58,6 +57,10 @@ public class PlanetScript : MonoBehaviour {
 
     private IEnumerator CountdownToEndGame()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(1f);
+
+        GetComponentInParent<MapManager>().LoadNextLevel();
+
+        // write here
     }
 }

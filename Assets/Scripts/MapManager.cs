@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class MapManager : MonoBehaviour
 
     public GameObject[] earthSimplePlanetPrefabs;
     public GameObject[] asteroidPrefabs;
+
+    public string nextSceneName = "a_map_3";
 
     // Use this for initialization
     void Start()
@@ -65,5 +68,10 @@ public class MapManager : MonoBehaviour
                 mover.TimeScale = universalTimeScale;
             }
         }
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(nextSceneName);
     }
 }
