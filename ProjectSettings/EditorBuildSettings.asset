@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 84853d3032f606240915d0d045b47221
+  - enabled: 1
+    path: Assets/Scenes/Maps/Asteroid Maps/a_map_1.unity
+    guid: 9113e3005c4bd0e4c9453eb8d5d138f3

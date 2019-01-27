@@ -25,12 +25,21 @@ public class CarScript : MonoBehaviour
 
     public Transform steerWheel;
     public Transform powerHandle;
-
+    public GameObject map_2d;
+    public AudioSource Ac1;
+    public AudioSource Ac2;
     private Quaternion startQ;
     private Quaternion powerQ;
     private bool buttonC = false;
 
+    public GameObject GameOver;
+
+    public GameObject GameWin;
     // Use this for initialization
+    private void Awake()
+    {
+        StartCoroutine("PlayLoopMusic");
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,6 +47,7 @@ public class CarScript : MonoBehaviour
 
         startQ = steerWheel.localRotation;
         powerQ = steerWheel.localRotation;
+        
     }
 
     // Update is called once per frame
@@ -65,12 +75,14 @@ public class CarScript : MonoBehaviour
     {
         camera1.SetActive(false);
         camera2.SetActive(true);
+        map_2d.SetActive(false);
     }
 
     void ChangeToFirstPView()
     {
         camera1.SetActive(true);
         camera2.SetActive(false);
+        map_2d.SetActive(true);
     }
 
     public void Strafe()
@@ -154,8 +166,26 @@ public class CarScript : MonoBehaviour
         if (collision.gameObject.GetComponent<AsteroidScript>() != null)
         {
             print("Game Over!");
+            GameOver.SetActive(true);
+            return;
             // TODO: Add game end.
+        }else if(collision.transform.CompareTag("Earth"))
+        {
+            GameWin.SetActive(true);
+            return;
         }
+    }
+
+    IEnumerator PlayLoopMusic()
+    {
+        yield return new WaitForSeconds(3);
+
+        ToAudio.UpdateVideo("Hello world");
+        yield return null;
+
+        Ac2.Play();
+        Ac2.loop = true;
+        yield return null;
     }
 
 }
