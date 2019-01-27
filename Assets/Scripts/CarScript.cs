@@ -35,10 +35,14 @@ public class CarScript : MonoBehaviour
     public GameObject GameOver;
 
     public GameObject GameWin;
+
+    public GameObject StoryText;
+    
+    
     // Use this for initialization
     private void Awake()
     {
-        StartCoroutine("PlayLoopMusic");
+        
     }
     void Start()
     {
@@ -47,7 +51,7 @@ public class CarScript : MonoBehaviour
 
         startQ = steerWheel.localRotation;
         powerQ = steerWheel.localRotation;
-        
+        StartCoroutine("PlayLoopMusic");
     }
 
     // Update is called once per frame
@@ -172,21 +176,26 @@ public class CarScript : MonoBehaviour
         }else if(collision.transform.CompareTag("Earth"))
         {
             GameWin.SetActive(true);
+            ToAudio.UpdateVideo(
+                "Welcome Home?");
             return;
         }
     }
 
     IEnumerator PlayLoopMusic()
     {
-        yield return new WaitForSeconds(3);
-
-        ToAudio.UpdateVideo("Hello world");
+        StoryText.SetActive(true);
+        yield return new WaitForSeconds(3f);    
+        ToAudio.UpdateVideo(
+            "Now you are on the way home,use w a s d to move and c for different angel of view.Player two can" +
+            "use his or her phone to control the turret!");
         yield return null;
-
+        StoryText.SetActive(false);
         Ac2.Play();
         Ac2.loop = true;
         yield return null;
     }
 
+ 
 }
 
