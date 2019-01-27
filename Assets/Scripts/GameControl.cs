@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class GameControl : MonoBehaviour
 {
     
-
     public GameObject image;
 
     public GameObject button;
@@ -29,7 +28,7 @@ public class GameControl : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadScene("a_map_3");
     }
 }
 

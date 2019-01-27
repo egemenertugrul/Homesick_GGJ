@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
     public string nextSceneName = "a_map_3";
 
     public GameObject GameOverCanvas;
+    public GameObject GameEndCanvas;
 
     // Use this for initialization
     void Start()
@@ -76,6 +77,7 @@ public class MapManager : MonoBehaviour
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(nextSceneName);
+
     }
 
     public IEnumerator RestartLevel()

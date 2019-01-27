@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlanetScript : MonoBehaviour {
+public class PlanetScript : MonoBehaviour
+{
     static float distanceMultiplier = 10f;
 
     public CarScript car;
@@ -51,7 +52,10 @@ public class PlanetScript : MonoBehaviour {
         CarScript cs = other.gameObject.GetComponent<CarScript>();
         if (cs)
         {
-            StartCoroutine(CountdownToEndGame());
+            if (gameObject.tag != "Earth") // TODO: VERY DANGEROUS CODE; CHANGE IT
+            {
+                StartCoroutine(CountdownToEndGame());
+            }
         }
     }
 

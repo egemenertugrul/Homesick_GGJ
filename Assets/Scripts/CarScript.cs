@@ -178,7 +178,7 @@ public class CarScript : MonoBehaviour
             GameOver.SetActive(true);
             return;
             // TODO: Add game end.
-        }else if(collision.transform.CompareTag("Earth"))
+        }else if(collision.transform.tag == "Earth")
         {
             StartCoroutine("ShowEndResult");         
             return;
@@ -196,7 +196,7 @@ public class CarScript : MonoBehaviour
         StoryText.SetActive(false);
         Ac2.Play();
         Ac2.loop = true;
-        yield return null;
+        //yield return null;
     }
 
     public void PressRestart()
@@ -209,7 +209,8 @@ public class CarScript : MonoBehaviour
         End.SetActive(true);
         yield return new WaitForSeconds(2f);
         GameWin.SetActive(true);
-        yield return null;
+        yield return new WaitForSeconds(2f);
+        GameObject.Find("Map").GetComponent<MapManager>().LoadNextLevel();
     }
 }
 
