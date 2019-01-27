@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarScript : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class CarScript : MonoBehaviour
     public GameObject GameWin;
 
     public GameObject StoryText;
+    public GameObject End;
     
     
     // Use this for initialization
@@ -69,6 +71,11 @@ public class CarScript : MonoBehaviour
                 ChangeToFirstPView();
                 buttonC = false;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PressRestart();
         }
 
         Strafe();
@@ -175,9 +182,7 @@ public class CarScript : MonoBehaviour
             // TODO: Add game end.
         }else if(collision.transform.CompareTag("Earth"))
         {
-            GameWin.SetActive(true);
-            ToAudio.UpdateVideo(
-                "Welcome Home?");
+            StartCoroutine("ShowEndResult");         
             return;
         }
     }
@@ -186,16 +191,27 @@ public class CarScript : MonoBehaviour
     {
         StoryText.SetActive(true);
         yield return new WaitForSeconds(3f);    
-        ToAudio.UpdateVideo(
-            "Now you are on the way home,use w a s d to move and c for different angel of view.Player two can" +
-            "use his or her phone to control the turret!");
-        yield return null;
+        //ToAudio.UpdateVideo(
+        //    "Now you are on the way home,use w a s d to move and c for different angel of view.Player two can" +
+        //    "use his or her phone to control the turret!");
+        //yield return null;
         StoryText.SetActive(false);
         Ac2.Play();
         Ac2.loop = true;
         yield return null;
     }
 
- 
+    public void PressRestart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    IEnumerator ShowEndResult()
+    {
+        End.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        GameWin.SetActive(true);
+        yield return null;
+    }
 }
 
